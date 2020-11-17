@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>tgg</groupId>
+		<artifactId>ygyhh-common</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tgg</groupId>
+	<artifactId>ygyhh-common-dal</artifactId>
+	<name>ygyhh-common-dal</name>
+	<description>ygyhh-common-dal</description>
+
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<!-- mysql -->
+		<dependency>
+			<groupId>mysql</groupId>
+			<artifactId>mysql-connector-java</artifactId>
+		</dependency>
+		<!-- mysql end -->
+
+		<!-- mybatis -->
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>org.mybatis</groupId>
+			<artifactId>mybatis-spring</artifactId>
+		</dependency>
+		<!-- mybatis end -->
+		
+		<!-- hsqldb -->
+		<dependency>
+			<groupId>org.hsqldb</groupId>
+			<artifactId>hsqldb</artifactId>
+		</dependency>
+		<!-- hsqldb end -->
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-osgi-bundle</id>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>tgg.common.dal;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Name>tgg.common.dal</Bundle-Name>
+						<Export-Package>tgg.common.dal.*</Export-Package>
+						<Import-Package>
+							org.mybatis.spring,
+							org.mybatis.spring.mapper,
+							org.springframework.beans.factory.config,
+							org.springframework.jdbc.datasource,
+							*
+						</Import-Package>
+						<Eclipse-AutoStart>true</Eclipse-AutoStart>
+					</instructions>
+				</configuration>
+			</plugin>
+			
+			<plugin>
+				<groupId>com.tqlab.plugin</groupId>
+				<artifactId>tqlab-mybatis-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>Generate MyBatis Artifacts</id>
+						<goals>
+							<goal>generate</goal>
+						</goals>
+					</execution>
+				</executions>
+				<configuration>
+					<outputDirectory>${project.basedir}</outputDirectory>
+					<jdbcURL>jdbc:hsqldb:file:${project.basedir}/db/sample;shutdown=true</jdbcURL>
+					<jdbcUserId>sa</jdbcUserId>
+					<jdbcPassword></jdbcPassword>
+					<database>sample</database>
+					<sqlScript>${project.basedir}/src/main/resources/hsqldb.sql</sqlScript>
+					<dbName>hsqldb</dbName>
+					<packages>tgg.common.dal</packages>
+					<sqlTemplatePath>${project.basedir}/src/main/resources/sqltemplate/hsqldb/</sqlTemplatePath>
+					<overwrite>true</overwrite>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

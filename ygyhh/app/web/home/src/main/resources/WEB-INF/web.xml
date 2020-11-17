@@ -1,0 +1,123 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<web-app version="2.5" xmlns="http://java.sun.com/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/javaee http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
+
+	<session-config>
+		<session-timeout>30</session-timeout>
+	</session-config>
+
+	<!-- Welcome files -->
+	<welcome-file-list>
+		<welcome-file>index.htm</welcome-file>
+		<welcome-file>index.html</welcome-file>
+		<welcome-file>index.jsp</welcome-file>
+	</welcome-file-list>
+
+	<listener>
+		<listener-class>org.springframework.web.context.ContextLoaderListener</listener-class>
+	</listener>
+
+	<context-param>
+		<param-name>contextClass</param-name>
+		<param-value>com.tqlab.sense.context.ServerOsgiBundleXmlWebApplicationContext</param-value>
+	</context-param>
+
+	<context-param>
+		<param-name>contextConfigLocation</param-name>
+		<param-value>classpath:META-INF/spring/*.xml</param-value>
+	</context-param>
+
+	<!-- Reads request input using UTF-8 encoding -->
+	<filter>
+		<filter-name>characterEncodingFilter</filter-name>
+		<filter-class>org.springframework.web.filter.CharacterEncodingFilter</filter-class>
+		<init-param>
+			<param-name>encoding</param-name>
+			<param-value>UTF-8</param-value>
+		</init-param>
+		<init-param>
+			<param-name>forceEncoding</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</filter>
+
+	<filter-mapping>
+		<filter-name>characterEncodingFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- Reads request input using UTF-8 encoding end.-->
+
+	<servlet>
+		<servlet-name>home</servlet-name>
+		<servlet-class>com.tqlab.sense.servlet.SenseDispatcherServlet</servlet-class>
+		<init-param>
+			<param-name>contextClass</param-name>
+			<param-value>com.tqlab.sense.context.ServerOsgiBundleXmlWebApplicationContext</param-value>
+		</init-param>
+		<load-on-startup>2</load-on-startup>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>home</servlet-name>
+		<url-pattern>*.htm</url-pattern>
+	</servlet-mapping>
+
+	<!-- DWR Framework config -->
+	<servlet>
+		<servlet-name>dwr-invoker</servlet-name>
+		<servlet-class>org.directwebremoting.spring.DwrSpringServlet</servlet-class>
+		<init-param>
+			<param-name>debug</param-name>
+			<param-value>true</param-value>
+		</init-param>
+		<init-param>
+			<param-name>crossDomainSessionSecurity</param-name>
+			<param-value>false</param-value>
+		</init-param>
+		<init-param>
+			<param-name>allowScriptTagRemoting</param-name>
+			<param-value>true</param-value>
+		</init-param>
+	</servlet>
+	<servlet-mapping>
+		<servlet-name>dwr-invoker</servlet-name>
+		<url-pattern>/dwr/*</url-pattern>
+	</servlet-mapping>
+	<!--DWR Framework config END -->
+
+	<!-- Static file filter -->
+	<filter>
+		<filter-name>staticFileFilter</filter-name>
+		<filter-class>com.tqlab.sense.servlet.StaticFileFilter</filter-class>
+		<init-param>
+			<param-name>exclusionPattern</param-name>
+			<param-value>
+				<![CDATA[
+					^(\/dwr\/)[\w\.\-\/]*$###^([\/\w\-\.]*)(\.htm)$
+				]]>
+			</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>staticFileFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	<!-- Static file filter END -->
+	
+	<!-- Session Filter -->
+	<!--  
+	<filter>
+		<filter-name>sessionFilter</filter-name>
+		<filter-class>org.jpxx.commons.session.filter.SessionFilter</filter-class>
+		<init-param>
+			<param-name>expire</param-name>
+			<param-value>1800</param-value>
+		</init-param>
+	</filter>
+	<filter-mapping>
+		<filter-name>sessionFilter</filter-name>
+		<url-pattern>/*</url-pattern>
+	</filter-mapping>
+	-->
+	<!-- Session Filter End -->
+</web-app>

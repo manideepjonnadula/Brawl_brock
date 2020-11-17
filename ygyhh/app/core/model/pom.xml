@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>tgg</groupId>
+		<artifactId>ygyhh-core</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tgg</groupId>
+	<artifactId>ygyhh-core-model</artifactId>
+	<name>ygyhh-core-model</name>
+	<description>ygyhh-core-model</description>
+
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>tgg</groupId>
+			<artifactId>ygyhh-common-util</artifactId>
+		</dependency>
+		<dependency>
+			<groupId>com.tqlab.sense</groupId>
+			<artifactId>tqlab-sense-runtime</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-osgi-bundle</id>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>tgg.core.model;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Name>tgg.core.model</Bundle-Name>
+						<Export-Package>tgg.core.model.*</Export-Package>
+						<Import-Package>
+							*
+						</Import-Package>
+						<Eclipse-AutoStart>true</Eclipse-AutoStart>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+</project>

@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>tgg</groupId>
+		<artifactId>ygyhh-biz</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tgg</groupId>
+	<artifactId>ygyhh-biz-shared</artifactId>
+	<name>ygyhh-biz-shared</name>
+	<description>ygyhh-biz-shared</description>
+
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>tgg</groupId>
+			<artifactId>ygyhh-core-service</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-osgi-bundle</id>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+				<version>2.3.7</version>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>tgg.biz.shared;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Name>tgg.biz.shared</Bundle-Name>
+						<Export-Package>tgg.biz.shared.*</Export-Package>
+						<Import-Package>
+							org.springframework.beans.factory.xml,
+							org.springframework.stereotype,
+							com.tqlab.sense.handler,
+							com.tqlab.sense.nuxeo,
+							*
+						</Import-Package>
+						<Eclipse-AutoStart>true</Eclipse-AutoStart>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+
+
+</project>

@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+	<modelVersion>4.0.0</modelVersion>
+
+	<parent>
+		<groupId>org.sonatype.oss</groupId>
+		<artifactId>oss-parent</artifactId>
+		<version>7</version>
+	</parent>
+	
+	<groupId>com.tqlab.sense</groupId>
+	<artifactId>tqlab-sense-archetype</artifactId>
+	<version>1.0.0</version>
+	<name>tqlab-sense-archetype</name>
+	<description>tqlab sense archetype</description>
+	<url>${site.url}</url>
+
+	<packaging>maven-archetype</packaging>
+
+	<licenses>
+		<license>
+			<name>The Apache Software License, Version 2.0</name>
+			<url>http://www.apache.org/licenses/LICENSE-2.0.txt</url>
+			<distribution>repo</distribution>
+		</license>
+	</licenses>
+
+	<developers>
+		<developer>
+			<name>John Lee</name>
+			<email>lijun@jpxx.org</email>
+		</developer>
+	</developers>
+
+	<scm>
+		<connection>scm:svn:http://svn.tqlab.com/sense-archetype/tags/tqlab-sense-archetype-1.0.0</connection>
+		<developerConnection>scm:svn:http://svn.tqlab.com/sense-archetype/tags/tqlab-sense-archetype-1.0.0</developerConnection>
+	</scm>
+
+	<distributionManagement>
+		<repository>
+			<id>oss.sonatype.org.release</id>
+			<url>https://oss.sonatype.org/service/local/staging/deploy/maven2</url>
+		</repository>
+		<snapshotRepository>
+			<id>oss.sonatype.org.snapshots</id>
+			<url>https://oss.sonatype.org/content/repositories/snapshots</url>
+		</snapshotRepository>
+	</distributionManagement>
+
+	<build>
+		<extensions>
+			<extension>
+				<groupId>org.apache.maven.archetype</groupId>
+				<artifactId>archetype-packaging</artifactId>
+				<version>2.1</version>
+			</extension>
+		</extensions>
+
+		<pluginManagement>
+			<plugins>
+				<plugin>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-archetype-plugin</artifactId>
+					<version>2.2</version>
+				</plugin>
+				<plugin>
+					<inherited>true</inherited>
+					<groupId>org.apache.maven.plugins</groupId>
+					<artifactId>maven-deploy-plugin</artifactId>
+					<configuration>
+						<updateReleaseInfo>true</updateReleaseInfo>
+					</configuration>
+				</plugin>
+			</plugins>
+		</pluginManagement>
+	</build>
+
+	<properties>
+		<project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+		<site.url>http://www.tqlab.com</site.url>
+	</properties>
+
+
+</project>

@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>tgg</groupId>
+		<artifactId>ygyhh-web</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tgg</groupId>
+	<artifactId>ygyhh-web-services</artifactId>
+	<name>ygyhh-web-services</name>
+	<description>ygyhh-web-services</description>
+
+	<packaging>jar</packaging>
+
+	<dependencies>
+		<dependency>
+			<groupId>tgg</groupId>
+			<artifactId>ygyhh-common-services-facade</artifactId>
+		</dependency>
+	</dependencies>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.felix</groupId>
+				<artifactId>maven-bundle-plugin</artifactId>
+				<executions>
+					<execution>
+						<id>make-osgi-bundle</id>
+						<phase>package</phase>
+						<goals>
+							<goal>bundle</goal>
+						</goals>
+					</execution>
+				</executions>
+				<extensions>true</extensions>
+				<configuration>
+					<instructions>
+						<Bundle-SymbolicName>tgg.web.services;singleton:=true</Bundle-SymbolicName>
+						<Bundle-Name>tgg.web.services</Bundle-Name>
+						<Import-Package>
+							org.apache.cxf.jaxws.spring,
+							org.apache.cxf.jaxws.context,
+							org.apache.cxf.bus.spring,
+							org.apache.cxf.binding.soap.spring,
+							org.apache.cxf.transport.servlet,
+							org.springframework.web.context,
+							org.springframework.beans.factory.config,
+							org.springframework.beans.factory.xml,
+							org.springframework.context.config,
+							org.eclipse.gemini.blueprint.config,
+							com.tqlab.sense.context,
+							META-INF.cxf,
+							*
+						</Import-Package>
+						<Web-ContextPath>/services</Web-ContextPath>
+						<Eclipse-AutoStart>true</Eclipse-AutoStart>
+					</instructions>
+				</configuration>
+			</plugin>
+		</plugins>
+	</build>
+</project>

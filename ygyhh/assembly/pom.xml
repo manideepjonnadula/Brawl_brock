@@ -1,0 +1,769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/maven-v4_0_0.xsd">
+
+	<parent>
+		<groupId>tgg</groupId>
+		<artifactId>ygyhh-parent</artifactId>
+		<version>1.0-SNAPSHOT</version>
+	</parent>
+
+	<modelVersion>4.0.0</modelVersion>
+
+	<groupId>tgg</groupId>
+	<artifactId>ygyhh-assembly</artifactId>
+	<version>1.0-SNAPSHOT</version>
+
+	<name>ygyhh-assembly</name>
+	<description>ygyhh-assembly</description>
+	<url>http://www.tqlab.com</url>
+
+	<packaging>pom</packaging>
+
+	<build>
+		<plugins>
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-antrun-plugin</artifactId>
+				<configuration>
+					<target name="osgi-config">
+						<copy todir="${output.basedir}/config">
+							<fileset dir="src/main/resources/config" />
+						</copy>
+						<copy todir="${output.basedir}/osgi/configuration">
+							<fileset dir="src/main/resources/osgi" />
+						</copy>
+						<copy todir="${output.basedir}/">
+							<fileset dir="src/main/resources/sh" />
+						</copy>
+						<copy todir="${output.basedir}/runtime/htdocs/template/">
+							<fileset dir="${project.basedir}/../htdocs/template">
+								<include name="**/*.vm" />
+								<exclude name="**/*.project" />
+							</fileset>
+						</copy>
+						<copy todir="${output.basedir}/runtime/htdocs/htdocs/">
+							<fileset dir="${project.basedir}/../htdocs/htdocs">
+								<include name="**/*" />
+								<exclude name="**/*.project" />
+							</fileset>
+						</copy>
+						<replace file="${output.basedir}/run.sh">
+							<replacefilter token="@org.eclipse.osgi.version@"
+								value="${org.eclipse.osgi.version}" />
+							<replacefilter token="@com.tqlab.sense.version@"
+								value="${com.tqlab.sense.version}" />
+						</replace>
+						<replace file="${output.basedir}/run.bat">
+							<replacefilter token="@org.eclipse.osgi.version@"
+								value="${org.eclipse.osgi.version}" />
+							<replacefilter token="@com.tqlab.sense.version@"
+								value="${com.tqlab.sense.version}" />
+						</replace>
+						<replace file="${output.basedir}/osgi/configuration/config.ini">
+							<replacefilter token="@com.tqlab.sense.version@"
+								value="${com.tqlab.sense.version}" />
+						</replace>
+						<chmod file="${output.basedir}/*.sh" perm="700" />
+						<!-- web app -->
+						<copy todir="${output.basedir}/runtime/bundles/webapp">
+							<fileset dir="${project.basedir}/../app/web/home/target/">
+								<include name="*.jar" />
+							</fileset>
+						</copy>
+						<copy todir="${output.basedir}/runtime/bundles/webapp">
+							<fileset dir="${project.basedir}/../app/web/admin/target/">
+								<include name="*.jar" />
+							</fileset>
+						</copy>
+						<copy todir="${output.basedir}/runtime/bundles/webapp">
+							<fileset dir="${project.basedir}/../app/web/services/target/">
+								<include name="*.jar" />
+							</fileset>
+						</copy>
+						<!-- web app end -->
+						<!-- nuxeo -->
+						<mkdir dir="${output.basedir}/osgi/nuxeo" />
+						<!-- zip target files -->
+						<zip destfile="${project.basedir}/../latest.release.zip" basedir="${output.basedir}" />
+					</target>
+				</configuration>
+			</plugin>
+
+			<plugin>
+				<groupId>org.apache.maven.plugins</groupId>
+				<artifactId>maven-dependency-plugin</artifactId>
+				<version>2.4</version>
+				<executions>
+					<execution>
+						<id>copy</id>
+						<phase>process-resources</phase>
+						<goals>
+							<goal>copy</goal>
+						</goals>
+					</execution>
+				</executions>
+
+				<configuration>
+					<artifactItems>
+						<!-- Sub project -->
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-biz-admin</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-biz-shared</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-core-service</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-core-model</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-common-util</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-common-dal</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-common-services-facade</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>tgg</groupId>
+							<artifactId>ygyhh-common-services-integration</artifactId>
+							<outputDirectory>${bundles.deploy.core.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Sub project end -->
+
+						<!-- Spring framework. -->
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.aop</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.asm</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.beans</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.context</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.context.support</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.core</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.expression</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.jdbc</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.transaction</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.web</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework</groupId>
+							<artifactId>org.springframework.web.servlet</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.aopalliance</groupId>
+							<artifactId>com.springsource.org.aopalliance</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.aspectj</groupId>
+							<artifactId>com.springsource.org.aspectj.weaver</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.jdt</groupId>
+							<artifactId>com.springsource.org.eclipse.jdt.core.compiler.batch</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.slf4j</groupId>
+							<artifactId>com.springsource.slf4j.api</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.slf4j</groupId>
+							<artifactId>com.springsource.slf4j.bridge</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.slf4j</groupId>
+							<artifactId>com.springsource.slf4j.nop</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.slf4j</groupId>
+							<artifactId>com.springsource.slf4j.org.apache.commons.logging</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.slf4j</groupId>
+							<artifactId>com.springsource.slf4j.simple</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.springframework.batch</groupId>
+							<artifactId>org.springframework.batch.infrastructure</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.xerces</groupId>
+							<artifactId>com.springsource.org.apache.xerces</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.xml</groupId>
+							<artifactId>com.springsource.org.apache.xml.resolver</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.xmlcommons</groupId>
+							<artifactId>com.springsource.org.apache.xmlcommons</artifactId>
+							<outputDirectory>${bundles.org.springframework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Spring framework end. -->
+
+						<!-- Eclipse gemini blueprint -->
+						<artifactItem>
+							<groupId>org.eclipse.gemini.blueprint</groupId>
+							<artifactId>gemini-blueprint-core</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.gemini.blueprint</groupId>
+							<artifactId>gemini-blueprint-extender</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.gemini.blueprint</groupId>
+							<artifactId>gemini-blueprint-io</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Eclipse gemini blueprint end -->
+
+						<!-- Tomcat -->
+						<artifactItem>
+							<groupId>org.apache.catalina</groupId>
+							<artifactId>com.springsource.org.apache.catalina</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.catalina</groupId>
+							<artifactId>com.springsource.org.apache.catalina.ha</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.catalina</groupId>
+							<artifactId>com.springsource.org.apache.catalina.tribes</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.coyote</groupId>
+							<artifactId>com.springsource.org.apache.coyote</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.el</groupId>
+							<artifactId>com.springsource.org.apache.el</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.jasper</groupId>
+							<artifactId>com.springsource.org.apache.jasper</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.juli</groupId>
+							<artifactId>com.springsource.org.apache.juli.extras</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.tomcat</groupId>
+							<artifactId>com.springsource.org.apache.tomcat.api</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.tomcat</groupId>
+							<artifactId>com.springsource.org.apache.tomcat.util</artifactId>
+							<outputDirectory>${bundles.org.apache.tomcat.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Tomcat end -->
+
+						<!-- Eclipse gemini web -->
+						<artifactItem>
+							<groupId>org.eclipse.gemini.web</groupId>
+							<artifactId>org.eclipse.gemini.web.core</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.gemini.web</groupId>
+							<artifactId>org.eclipse.gemini.web.extender</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.gemini.web</groupId>
+							<artifactId>org.eclipse.gemini.web.tomcat</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Eclipse gemini web end -->
+
+						<!-- javax -->
+						<artifactItem>
+							<groupId>javax.annotation</groupId>
+							<artifactId>javax.annotation</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.activation</groupId>
+							<artifactId>com.springsource.javax.activation</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.el</groupId>
+							<artifactId>javax.el</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.ejb</groupId>
+							<artifactId>com.springsource.javax.ejb</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.mail</groupId>
+							<artifactId>com.springsource.javax.mail</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.servlet</groupId>
+							<artifactId>javax.servlet</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.servlet</groupId>
+							<artifactId>javax.servlet.jsp</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.persistence</groupId>
+							<artifactId>com.springsource.javax.persistence</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.transaction</groupId>
+							<artifactId>com.springsource.javax.transaction</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.xml.bind</groupId>
+							<artifactId>com.springsource.javax.xml.bind</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.xml.rpc</groupId>
+							<artifactId>com.springsource.javax.xml.rpc</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.xml.soap</groupId>
+							<artifactId>com.springsource.javax.xml.soap</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.xml.stream</groupId>
+							<artifactId>com.springsource.javax.xml.stream</artifactId>
+							<outputDirectory>${bundles.javax.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- javax end -->
+
+						<!-- virgo -->
+						<artifactItem>
+							<groupId>org.eclipse.virgo.medic</groupId>
+							<artifactId>org.eclipse.virgo.medic</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.virgo.util</groupId>
+							<artifactId>org.eclipse.virgo.util.common</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.virgo.util</groupId>
+							<artifactId>org.eclipse.virgo.util.io</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.virgo.util</groupId>
+							<artifactId>org.eclipse.virgo.util.math</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.virgo.util</groupId>
+							<artifactId>org.eclipse.virgo.util.osgi</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.virgo.util</groupId>
+							<artifactId>org.eclipse.virgo.util.parser.manifest</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.virgo.util</groupId>
+							<artifactId>org.eclipse.virgo.util.osgi.manifest</artifactId>
+							<outputDirectory>${bundles.org.eclipse.gemini.blueprint.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- virgo end -->
+
+						<!-- Ext -->
+						<!-- Apache commons -->
+						<artifactItem>
+							<groupId>commons-beanutils</groupId>
+							<artifactId>commons-beanutils</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-codec</groupId>
+							<artifactId>commons-codec</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-collections</groupId>
+							<artifactId>commons-collections</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-digester</groupId>
+							<artifactId>commons-digester</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-fileupload</groupId>
+							<artifactId>commons-fileupload</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-io</groupId>
+							<artifactId>commons-io</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-lang</groupId>
+							<artifactId>commons-lang</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Apache commons end -->
+						<!-- Mybatis -->
+						<artifactItem>
+							<groupId>org.mybatis</groupId>
+							<artifactId>mybatis</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.mybatis</groupId>
+							<artifactId>mybatis-spring</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Mybatis end -->
+												
+						<!-- dwr -->
+						<artifactItem>
+							<groupId>org.directwebremoting</groupId>
+							<artifactId>tqlab-dwr-core</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- dwr end -->
+						
+						<!-- json lib -->
+						<artifactItem>
+							<groupId>net.sf.json-lib</groupId>
+							<artifactId>tqlab-json-lib</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- json lib end -->
+						<!-- HttpComponents -->
+						<artifactItem>
+							<groupId>org.apache.httpcomponents</groupId>
+							<artifactId>httpclient-osgi</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.httpcomponents</groupId>
+							<artifactId>httpcore-osgi</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- HttpComponents end -->
+						<!-- SSHD -->
+						<artifactItem>
+							<groupId>org.apache.mina</groupId>
+							<artifactId>mina-core</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.sshd</groupId>
+							<artifactId>sshd-core</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- SSHD end -->
+						<!-- CXF -->
+						<artifactItem>
+							<groupId>org.apache.cxf</groupId>
+							<artifactId>cxf-bundle</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.ws.rs</groupId>
+							<artifactId>jsr311-api</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.neethi</groupId>
+							<artifactId>neethi</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.ws.xmlschema</groupId>
+							<artifactId>xmlschema-core</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.ws.security</groupId>
+							<artifactId>wss4j</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- CXF END -->
+						<!-- hsqldb -->
+						<artifactItem>
+							<groupId>org.hsqldb</groupId>
+							<artifactId>hsqldb</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- hsqldb end -->
+						
+						<!-- Jpxx commons -->
+						<artifactItem>
+							<groupId>org.jpxx.commons</groupId>
+							<artifactId>commons-cache</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jpxx.commons</groupId>
+							<artifactId>commons-session</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Jpxx commons end -->
+						<!-- Ext end -->
+												
+						<!-- Libs -->
+						<!-- Mysql -->
+						<artifactItem>
+							<groupId>mysql</groupId>
+							<artifactId>mysql-connector-java</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>commons-logging</groupId>
+							<artifactId>commons-logging</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>dom4j</groupId>
+							<artifactId>dom4j</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.jdom</groupId>
+							<artifactId>jdom</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>log4j</groupId>
+							<artifactId>log4j</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>ognl</groupId>
+							<artifactId>ognl</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>oro</groupId>
+							<artifactId>oro</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>bsf</groupId>
+							<artifactId>bsf</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>bouncycastle</groupId>
+							<artifactId>bcprov-jdk16</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>wsdl4j</groupId>
+							<artifactId>wsdl4j</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>xml-resolver</groupId>
+							<artifactId>xml-resolver</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.opensaml</groupId>
+							<artifactId>opensaml</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>xml-security</groupId>
+							<artifactId>xmlsec</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>xmldsig</groupId>
+							<artifactId>xmldsig</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>javax.xml.ws</groupId>
+							<artifactId>jaxws-api</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.bcel</groupId>
+							<artifactId>bcel</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>jakarta-regexp</groupId>
+							<artifactId>jakarta-regexp</artifactId>
+							<outputDirectory>${libs.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- Libs end -->
+						
+						<!-- OSGI Framework -->
+						<artifactItem>
+							<groupId>org.eclipse.osgi</groupId>
+							<artifactId>org.eclipse.osgi</artifactId>
+							<outputDirectory>${osgi.framework.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.eclipse.osgi</groupId>
+							<artifactId>org.eclipse.equinox.console</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.felix</groupId>
+							<artifactId>org.apache.felix.gogo.command</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.felix</groupId>
+							<artifactId>org.apache.felix.gogo.runtime</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.apache.felix</groupId>
+							<artifactId>org.apache.felix.gogo.shell</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>org.osgi</groupId>
+							<artifactId>org.osgi.compendium</artifactId>
+							<outputDirectory>${bundles.ext.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- OSGI Framework end -->
+												
+						<!-- TQLAB SENSE -->
+						<artifactItem>
+							<groupId>com.tqlab.sense</groupId>
+							<artifactId>tqlab-sense-hook</artifactId>
+							<outputDirectory>${osgi.framework.outputDirectory}</outputDirectory>
+							<destFileName>tqlab-sense-hook-${com.tqlab.sense.version}.jar</destFileName>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.tqlab.sense</groupId>
+							<artifactId>tqlab-sense-bm</artifactId>
+							<outputDirectory>${osgi.framework.outputDirectory}</outputDirectory>
+							<destFileName>tqlab-sense-bm-${com.tqlab.sense.version}.jar</destFileName>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.tqlab.sense</groupId>
+							<artifactId>tqlab-sense-mvc</artifactId>
+							<outputDirectory>${bundles.platform.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<artifactItem>
+							<groupId>com.tqlab.sense</groupId>
+							<artifactId>tqlab-sense-runtime</artifactId>
+							<outputDirectory>${bundles.platform.outputDirectory}</outputDirectory>
+						</artifactItem>
+						<!-- TQLAB SENSE END-->
+						
+					</artifactItems>
+				</configuration>
+			</plugin>
+
+		</plugins>
+	</build>
+
+	<properties>
+		<!-- Bundles output directory config -->
+		<bundles.org.springframework.outputDirectory>${output.basedir}/runtime/bundles/kernel/springframework</bundles.org.springframework.outputDirectory>
+		<bundles.org.eclipse.gemini.blueprint.outputDirectory>${output.basedir}/runtime/bundles/kernel/web</bundles.org.eclipse.gemini.blueprint.outputDirectory>
+		<bundles.org.apache.tomcat.outputDirectory>${output.basedir}/runtime/bundles/kernel/tomcat</bundles.org.apache.tomcat.outputDirectory>
+		<bundles.javax.outputDirectory>${output.basedir}/runtime/bundles/kernel/javax</bundles.javax.outputDirectory>
+		<bundles.ext.outputDirectory>${output.basedir}/runtime/bundles/ext</bundles.ext.outputDirectory>
+		<bundles.platform.outputDirectory>${output.basedir}/runtime/bundles/platform</bundles.platform.outputDirectory>
+		<bundles.deploy.core.outputDirectory>${output.basedir}/runtime/bundles/deploy/core</bundles.deploy.core.outputDirectory>
+		<osgi.framework.outputDirectory>${output.basedir}/osgi</osgi.framework.outputDirectory>
+		<!-- Bundles output directory config end -->
+
+		<libs.outputDirectory>${output.basedir}/runtime/libs</libs.outputDirectory>
+
+		<output.basedir>${project.basedir}/../target</output.basedir>
+	</properties>
+</project>

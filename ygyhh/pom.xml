@@ -1,0 +1,2667 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0                       http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    	
+  
+  <modelVersion>4.0.0</modelVersion>
+    	
+  
+  <groupId>tgg</groupId>
+    	
+  
+  <artifactId>ygyhh-parent</artifactId>
+    	
+  
+  <version>1.0-SNAPSHOT</version>
+    	
+  
+  <name>ygyhh-parent</name>
+    	
+  
+  <description>ygyhh-parent</description>
+    	
+  
+  <url>${site}</url>
+    	
+  
+  <packaging>pom</packaging>
+    	
+  
+  <repositories>
+        		
+    
+    <repository>
+            			
+      
+      <id>central</id>
+            			
+      
+      <name>Maven Repository</name>
+            			
+      
+      <layout>default</layout>
+            			
+      
+      <url>http://maven.hidev.net/repo</url>
+            			
+      
+      <releases>
+                				
+        
+        <enabled>true</enabled>
+                			
+      
+      </releases>
+            			
+      
+      <snapshots>
+                				
+        
+        <enabled>true</enabled>
+                			
+      
+      </snapshots>
+            		
+    
+    </repository>
+        	
+  
+  </repositories>
+    	
+  
+  <pluginRepositories>
+        		
+    
+    <pluginRepository>
+            			
+      
+      <id>central</id>
+            			
+      
+      <name>Maven Plugin Repository</name>
+            			
+      
+      <url>http://maven.hidev.net/repo</url>
+            			
+      
+      <layout>default</layout>
+            			
+      
+      <snapshots>
+                				
+        
+        <enabled>true</enabled>
+                			
+      
+      </snapshots>
+            			
+      
+      <releases>
+                				
+        
+        <updatePolicy>never</updatePolicy>
+                			
+      
+      </releases>
+            		
+    
+    </pluginRepository>
+        	
+  
+  </pluginRepositories>
+    	
+  
+  <build>
+        		
+    
+    <directory>${project.basedir}/target</directory>
+        		
+    
+    <outputDirectory>${project.build.directory}/classes</outputDirectory>
+        		
+    
+    <finalName>${project.artifactId}-${project.version}</finalName>
+        		
+    
+    <testOutputDirectory>${project.build.directory}/test-classes</testOutputDirectory>
+        		
+    
+    <sourceDirectory>${project.basedir}/src/main/java</sourceDirectory>
+        		
+    
+    <!-- TODO: MNG-3731 maven-plugin-tools-api < 2.4.4 expect this to be relative... -->
+        		
+    
+    <scriptSourceDirectory>src/main/scripts</scriptSourceDirectory>
+        		
+    
+    <testSourceDirectory>${project.basedir}/src/test/java</testSourceDirectory>
+        		
+    
+    <resources>
+            			
+      
+      <resource>
+                				
+        
+        <directory>${project.basedir}/src/main/resources</directory>
+                			
+      
+      </resource>
+            		
+    
+    </resources>
+        		
+    
+    <testResources>
+            			
+      
+      <testResource>
+                				
+        
+        <directory>${project.basedir}/src/test/resources</directory>
+                			
+      
+      </testResource>
+            		
+    
+    </testResources>
+        		
+    
+    <pluginManagement>
+            			
+      
+      <plugins>
+                				
+        
+        <plugin>
+                    					
+          
+          <artifactId>maven-compiler-plugin</artifactId>
+                    					
+          
+          <version>2.5</version>
+                    					
+          
+          <configuration>
+                        						
+            
+            <source>1.6</source>
+                        						
+            
+            <target>1.6</target>
+                        						
+            
+            <encoding>UTF-8</encoding>
+                        					
+          
+          </configuration>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <artifactId>maven-deploy-plugin</artifactId>
+                    					
+          
+          <version>2.7</version>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <artifactId>maven-install-plugin</artifactId>
+                    					
+          
+          <version>2.3.1</version>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <artifactId>maven-jar-plugin</artifactId>
+                    					
+          
+          <version>2.4</version>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <groupId>org.apache.maven.plugins</groupId>
+                    					
+          
+          <artifactId>maven-eclipse-plugin</artifactId>
+                    					
+          
+          <version>2.9</version>
+                    					
+          
+          <configuration>
+                        						
+            
+            <downloadSources>true</downloadSources>
+                        						
+            
+            <downloadJavadocs>false</downloadJavadocs>
+                        					
+          
+          </configuration>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <groupId>org.apache.maven.plugins</groupId>
+                    					
+          
+          <artifactId>maven-antrun-plugin</artifactId>
+                    					
+          
+          <version>1.7</version>
+                    					
+          
+          <executions>
+                        						
+            
+            <execution>
+                            							
+              
+              <id>copy-config</id>
+                            							
+              
+              <phase>process-resources</phase>
+                            							
+              
+              <goals>
+                                								
+                
+                <goal>run</goal>
+                                							
+              
+              </goals>
+                            						
+            
+            </execution>
+                        					
+          
+          </executions>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <groupId>org.apache.felix</groupId>
+                    					
+          
+          <artifactId>maven-bundle-plugin</artifactId>
+                    					
+          
+          <version>2.3.7</version>
+                    				
+        
+        </plugin>
+                				
+        
+        <plugin>
+                    					
+          
+          <groupId>com.tqlab.plugin</groupId>
+                    					
+          
+          <artifactId>tqlab-mybatis-plugin</artifactId>
+                    					
+          
+          <version>${com.tqlab.sense.version}</version>
+                    				
+        
+        </plugin>
+                			
+      
+      </plugins>
+            		
+    
+    </pluginManagement>
+        	
+  
+  </build>
+    	
+  
+  <reporting>
+        		
+    
+    <outputDirectory>${project.build.directory}/site</outputDirectory>
+        	
+  
+  </reporting>
+    	
+	
+  
+  <profiles>
+        		
+    
+    <profile>
+            			
+      
+      <id>release-profile</id>
+            			
+      
+      <activation>
+                				
+        
+        <property>
+                    					
+          
+          <name>performRelease</name>
+                    					
+          
+          <value>true</value>
+                    				
+        
+        </property>
+                			
+      
+      </activation>
+            			
+      
+      <build>
+                				
+        
+        <plugins>
+                    					
+          
+          <plugin>
+                        						
+            
+            <inherited>true</inherited>
+                        						
+            
+            <groupId>org.apache.maven.plugins</groupId>
+                        						
+            
+            <artifactId>maven-source-plugin</artifactId>
+                        						
+            
+            <executions>
+                            							
+              
+              <execution>
+                                								
+                
+                <id>attach-sources</id>
+                                								
+                
+                <goals>
+                                    									
+                  
+                  <goal>jar</goal>
+                                    								
+                
+                </goals>
+                                							
+              
+              </execution>
+                            						
+            
+            </executions>
+                        					
+          
+          </plugin>
+                    					
+          
+          <plugin>
+                        						
+            
+            <inherited>true</inherited>
+                        						
+            
+            <groupId>org.apache.maven.plugins</groupId>
+                        						
+            
+            <artifactId>maven-javadoc-plugin</artifactId>
+                        						
+            
+            <executions>
+                            							
+              
+              <execution>
+                                								
+                
+                <id>attach-javadocs</id>
+                                								
+                
+                <goals>
+                                    									
+                  
+                  <goal>jar</goal>
+                                    								
+                
+                </goals>
+                                							
+              
+              </execution>
+                            						
+            
+            </executions>
+                        					
+          
+          </plugin>
+                    					
+          
+          <plugin>
+                        						
+            
+            <inherited>true</inherited>
+                        						
+            
+            <groupId>org.apache.maven.plugins</groupId>
+                        						
+            
+            <artifactId>maven-deploy-plugin</artifactId>
+                        						
+            
+            <configuration>
+                            							
+              
+              <updateReleaseInfo>true</updateReleaseInfo>
+                            						
+            
+            </configuration>
+                        					
+          
+          </plugin>
+                    				
+        
+        </plugins>
+                			
+      
+      </build>
+            		
+    
+    </profile>
+        	
+  
+  </profiles>
+    	
+  
+  <dependencyManagement>
+        		
+    
+    <dependencies>
+            			
+      
+      <!-- Sub project -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-web-home</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-web-admin</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-web-services</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-biz-admin</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-biz-shared</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-core-service</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-core-model</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-common-util</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-common-dal</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-common-services-facade</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>tgg</groupId>
+                				
+        
+        <artifactId>ygyhh-common-services-integration</artifactId>
+                				
+        
+        <version>${tgg.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Sub project end -->
+            			
+      
+      <!-- Kernel -->
+            			
+      
+      <!-- Spring framework. -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.aop</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.asm</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.beans</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.context</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.context.support</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.core</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.expression</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.jdbc</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.jms</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.transaction</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.web</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.web.servlet</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.oxm</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework</groupId>
+                				
+        
+        <artifactId>org.springframework.test</artifactId>
+                				
+        
+        <version>${org.springframework.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.aopalliance</groupId>
+                				
+        
+        <artifactId>com.springsource.org.aopalliance</artifactId>
+                				
+        
+        <version>1.0.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.aspectj</groupId>
+                				
+        
+        <artifactId>com.springsource.org.aspectj.weaver</artifactId>
+                				
+        
+        <version>1.6.8.RELEASE</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.jdt</groupId>
+                				
+        
+        <artifactId>com.springsource.org.eclipse.jdt.core.compiler.batch</artifactId>
+                				
+        
+        <version>3.6.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.slf4j</groupId>
+                				
+        
+        <artifactId>com.springsource.slf4j.api</artifactId>
+                				
+        
+        <version>${org.slf4j.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.slf4j</groupId>
+                				
+        
+        <artifactId>com.springsource.slf4j.bridge</artifactId>
+                				
+        
+        <version>${org.slf4j.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.slf4j</groupId>
+                				
+        
+        <artifactId>com.springsource.slf4j.nop</artifactId>
+                				
+        
+        <version>${org.slf4j.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.slf4j</groupId>
+                				
+        
+        <artifactId>com.springsource.slf4j.org.apache.commons.logging</artifactId>
+                				
+        
+        <version>${org.slf4j.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.slf4j</groupId>
+                				
+        
+        <artifactId>com.springsource.slf4j.simple</artifactId>
+                				
+        
+        <version>${org.slf4j.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.springframework.batch</groupId>
+                				
+        
+        <artifactId>org.springframework.batch.infrastructure</artifactId>
+                				
+        
+        <version>2.1.6.RELEASE</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.xerces</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.xerces</artifactId>
+                				
+        
+        <version>2.9.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.xml</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.xml.resolver</artifactId>
+                				
+        
+        <version>1.2.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.xmlcommons</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.xmlcommons</artifactId>
+                				
+        
+        <version>1.3.4</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Spring framework end. -->
+            			
+			
+      
+      <dependency>
+                				
+        
+        <groupId>org.osgi</groupId>
+                				
+        
+        <artifactId>org.osgi.core</artifactId>
+                				
+        
+        <version>4.3.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.osgi</groupId>
+                				
+        
+        <artifactId>org.osgi.compendium</artifactId>
+                				
+        
+        <version>4.2.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Eclipse gemini blueprint -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.blueprint</groupId>
+                				
+        
+        <artifactId>gemini-blueprint-core</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.blueprint.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.blueprint</groupId>
+                				
+        
+        <artifactId>gemini-blueprint-extender</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.blueprint.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.blueprint</groupId>
+                				
+        
+        <artifactId>gemini-blueprint-io</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.blueprint.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.blueprint</groupId>
+                				
+        
+        <artifactId>gemini-blueprint-mock</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.blueprint.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.blueprint</groupId>
+                				
+        
+        <artifactId>gemini-blueprint-test</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.blueprint.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Eclipse gemini blueprint end -->
+            			
+      
+      <!-- Eclipse gemini web -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.web</groupId>
+                				
+        
+        <artifactId>org.eclipse.gemini.web.core</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.web.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.web</groupId>
+                				
+        
+        <artifactId>org.eclipse.gemini.web.extender</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.web.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.gemini.web</groupId>
+                				
+        
+        <artifactId>org.eclipse.gemini.web.tomcat</artifactId>
+                				
+        
+        <version>${org.eclipse.gemini.web.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Eclipse gemini web end -->
+            			
+      
+      <!-- Tomcat -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.catalina</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.catalina</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.catalina</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.catalina.ha</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.catalina</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.catalina.tribes</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.coyote</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.coyote</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.el</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.el</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.jasper</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.jasper</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.juli</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.juli.extras</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.tomcat</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.tomcat.api</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.tomcat</groupId>
+                				
+        
+        <artifactId>com.springsource.org.apache.tomcat.util</artifactId>
+                				
+        
+        <version>${org.apache.catalina.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.tomcat</groupId>
+                				
+        
+        <artifactId>jdbc-pool</artifactId>
+                				
+        
+        <version>1.2.0.20111112</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Tomcat end -->
+            			
+      
+      <!-- javax -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.annotation</groupId>
+                				
+        
+        <artifactId>javax.annotation</artifactId>
+                				
+        
+        <version>1.1.0.v201105051105</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.activation</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.activation</artifactId>
+                				
+        
+        <version>1.1.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.el</groupId>
+                				
+        
+        <artifactId>javax.el</artifactId>
+                				
+        
+        <version>2.2.0.v201105051105</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.ejb</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.ejb</artifactId>
+                				
+        
+        <version>3.0.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.mail</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.mail</artifactId>
+                				
+        
+        <version>1.4.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.servlet</groupId>
+                				
+        
+        <artifactId>javax.servlet</artifactId>
+                				
+        
+        <version>3.0.0.v201103241009</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.servlet</groupId>
+                				
+        
+        <artifactId>javax.servlet.jsp</artifactId>
+                				
+        
+        <version>2.2.0.v201103241009</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.persistence</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.persistence</artifactId>
+                				
+        
+        <version>2.0.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.transaction</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.transaction</artifactId>
+                				
+        
+        <version>1.1.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.xml.bind</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.xml.bind</artifactId>
+                				
+        
+        <version>2.2.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.xml.rpc</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.xml.rpc</artifactId>
+                				
+        
+        <version>1.1.0.v20110517</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.xml.soap</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.xml.soap</artifactId>
+                				
+        
+        <version>1.3.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.xml.stream</groupId>
+                				
+        
+        <artifactId>com.springsource.javax.xml.stream</artifactId>
+                				
+        
+        <version>1.0.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- javax end -->
+            			
+      
+      <!-- virgo -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.medic</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.medic</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.util</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.util.common</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.util</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.util.io</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.util</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.util.math</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.util</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.util.osgi</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.util</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.util.parser.manifest</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.virgo.util</groupId>
+                				
+        
+        <artifactId>org.eclipse.virgo.util.osgi.manifest</artifactId>
+                				
+        
+        <version>${org.eclipse.virgo.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- virgo end -->
+            			
+      
+      <!-- Kernel end -->
+            			
+      
+      <!-- Ext -->
+            			
+      
+      <!-- Apache commons -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-beanutils</groupId>
+                				
+        
+        <artifactId>commons-beanutils</artifactId>
+                				
+        
+        <version>1.8.3</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-codec</groupId>
+                				
+        
+        <artifactId>commons-codec</artifactId>
+                				
+        
+        <version>1.5</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-collections</groupId>
+                				
+        
+        <artifactId>commons-collections</artifactId>
+                				
+        
+        <version>3.2.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-digester</groupId>
+                				
+        
+        <artifactId>commons-digester</artifactId>
+                				
+        
+        <version>2.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-fileupload</groupId>
+                				
+        
+        <artifactId>commons-fileupload</artifactId>
+                				
+        
+        <version>1.2.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-io</groupId>
+                				
+        
+        <artifactId>commons-io</artifactId>
+                				
+        
+        <version>2.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-lang</groupId>
+                				
+        
+        <artifactId>commons-lang</artifactId>
+                				
+        
+        <version>2.6</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Apache commons end -->
+            			
+      
+      <!-- Mybatis -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.mybatis</groupId>
+                				
+        
+        <artifactId>mybatis</artifactId>
+                				
+        
+        <version>3.1.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.mybatis</groupId>
+                				
+        
+        <artifactId>mybatis-spring</artifactId>
+                				
+        
+        <version>1.1.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Mybatis end -->
+            			
+      
+      <!-- dwr -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.directwebremoting</groupId>
+                				
+        
+        <artifactId>tqlab-dwr-core</artifactId>
+                				
+        
+        <version>3.0.0</version>
+                				
+        
+        <exclusions>
+                    					
+          
+          <exclusion>
+                        						
+            
+            <groupId>joda-time</groupId>
+                        						
+            
+            <artifactId>joda-time</artifactId>
+                        					
+          
+          </exclusion>
+                    				
+        
+        </exclusions>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- dwr end -->
+            			
+      
+      <!-- json lib -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>net.sf.json-lib</groupId>
+                				
+        
+        <artifactId>tqlab-json-lib</artifactId>
+                				
+        
+        <version>2.4.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- json lib end -->
+            			
+      
+      <!-- HttpComponents -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.httpcomponents</groupId>
+                				
+        
+        <artifactId>httpclient-osgi</artifactId>
+                				
+        
+        <version>4.1.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.httpcomponents</groupId>
+                				
+        
+        <artifactId>httpcore-osgi</artifactId>
+                				
+        
+        <version>4.1.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- HttpComponents end -->
+            			
+      
+      <!-- SSHD -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.mina</groupId>
+                				
+        
+        <artifactId>mina-core</artifactId>
+                				
+        
+        <version>2.0.4</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.sshd</groupId>
+                				
+        
+        <artifactId>sshd-core</artifactId>
+                				
+        
+        <version>0.6.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- SSHD end -->
+            			
+      
+      <!-- CXF -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.cxf</groupId>
+                				
+        
+        <artifactId>cxf-bundle</artifactId>
+                				
+        
+        <version>2.6.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.ws.rs</groupId>
+                				
+        
+        <artifactId>jsr311-api</artifactId>
+                				
+        
+        <version>1.1.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.neethi</groupId>
+                				
+        
+        <artifactId>neethi</artifactId>
+                				
+        
+        <version>3.0.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.ws.xmlschema</groupId>
+                				
+        
+        <artifactId>xmlschema-core</artifactId>
+                				
+        
+        <version>2.0.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.ws.security</groupId>
+                				
+        
+        <artifactId>wss4j</artifactId>
+                				
+        
+        <version>1.6.3</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- CXF END -->
+            			
+			
+      
+      <!-- hsqldb -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.hsqldb</groupId>
+                				
+        
+        <artifactId>hsqldb</artifactId>
+                				
+        
+        <version>2.2.8</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- hsqldb end -->
+            			
+      
+      <!-- Jpxx commons -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.jpxx.commons</groupId>
+                				
+        
+        <artifactId>commons-cache</artifactId>
+                				
+        
+        <version>1.0.0.20111206</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.jpxx.commons</groupId>
+                				
+        
+        <artifactId>commons-session</artifactId>
+                				
+        
+        <version>1.0.0.20111220</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Jpxx commons end -->
+            			
+      
+      <!-- Ext end -->
+            			
+      
+      <!-- Libs -->
+            			
+      
+      <!-- Mysql -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>mysql</groupId>
+                				
+        
+        <artifactId>mysql-connector-java</artifactId>
+                				
+        
+        <version>5.1.20</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>commons-logging</groupId>
+                				
+        
+        <artifactId>commons-logging</artifactId>
+                				
+        
+        <version>1.1.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>dom4j</groupId>
+                				
+        
+        <artifactId>dom4j</artifactId>
+                				
+        
+        <version>1.6.1</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.jdom</groupId>
+                				
+        
+        <artifactId>jdom</artifactId>
+                				
+        
+        <version>1.1.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>log4j</groupId>
+                				
+        
+        <artifactId>log4j</artifactId>
+                				
+        
+        <version>1.2.16</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>ognl</groupId>
+                				
+        
+        <artifactId>ognl</artifactId>
+                				
+        
+        <version>3.0.3</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>oro</groupId>
+                				
+        
+        <artifactId>oro</artifactId>
+                				
+        
+        <version>2.0.8</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>bsf</groupId>
+                				
+        
+        <artifactId>bsf</artifactId>
+                				
+        
+        <version>2.4.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>bouncycastle</groupId>
+                				
+        
+        <artifactId>bcprov-jdk16</artifactId>
+                				
+        
+        <version>140</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>wsdl4j</groupId>
+                				
+        
+        <artifactId>wsdl4j</artifactId>
+                				
+        
+        <version>1.6.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>xml-resolver</groupId>
+                				
+        
+        <artifactId>xml-resolver</artifactId>
+                				
+        
+        <version>1.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.opensaml</groupId>
+                				
+        
+        <artifactId>opensaml</artifactId>
+                				
+        
+        <version>2.5.1</version>
+                				
+        
+        <exclusions>
+                    					
+          
+          <exclusion>
+                        						
+            
+            <groupId>xerces</groupId>
+                        						
+            
+            <artifactId>xml-apis</artifactId>
+                        					
+          
+          </exclusion>
+                    				
+        
+        </exclusions>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>xml-security</groupId>
+                				
+        
+        <artifactId>xmlsec</artifactId>
+                				
+        
+        <version>1.3.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>xmldsig</groupId>
+                				
+        
+        <artifactId>xmldsig</artifactId>
+                				
+        
+        <version>1.0.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>javax.xml.ws</groupId>
+                				
+        
+        <artifactId>jaxws-api</artifactId>
+                				
+        
+        <version>2.2.7</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.bcel</groupId>
+                				
+        
+        <artifactId>bcel</artifactId>
+                				
+        
+        <version>5.2</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>jakarta-regexp</groupId>
+                				
+        
+        <artifactId>jakarta-regexp</artifactId>
+                				
+        
+        <version>1.4</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Libs end -->
+            			
+      
+      <!-- OSGI Framework -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.osgi</groupId>
+                				
+        
+        <artifactId>org.eclipse.osgi</artifactId>
+                				
+        
+        <version>${org.eclipse.osgi.version}</version>
+                			
+      
+      </dependency>
+            	
+			
+      
+      <dependency>
+                				
+        
+        <groupId>org.eclipse.osgi</groupId>
+                				
+        
+        <artifactId>org.eclipse.equinox.console</artifactId>
+                				
+        
+        <version>1.0.0.v20120430-1356</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.felix</groupId>
+                				
+        
+        <artifactId>org.apache.felix.gogo.command</artifactId>
+                				
+        
+        <version>0.8.0.v201105062003</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.felix</groupId>
+                				
+        
+        <artifactId>org.apache.felix.gogo.runtime</artifactId>
+                				
+        
+        <version>0.8.0.v201105062003</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.apache.felix</groupId>
+                				
+        
+        <artifactId>org.apache.felix.gogo.shell</artifactId>
+                				
+        
+        <version>0.8.0.v201107131313</version>
+                			
+      
+      </dependency>
+            		
+			
+      
+      <!-- OSGI Framework end -->
+            			
+			
+      
+      <!-- TQLAB SENSE -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>com.tqlab.sense</groupId>
+                				
+        
+        <artifactId>tqlab-sense-hook</artifactId>
+                				
+        
+        <version>${com.tqlab.sense.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>com.tqlab.sense</groupId>
+                				
+        
+        <artifactId>tqlab-sense-bm</artifactId>
+                				
+        
+        <version>${com.tqlab.sense.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>com.tqlab.sense</groupId>
+                				
+        
+        <artifactId>tqlab-sense-mvc</artifactId>
+                				
+        
+        <version>${com.tqlab.sense.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>com.tqlab.sense</groupId>
+                				
+        
+        <artifactId>tqlab-sense-runtime</artifactId>
+                				
+        
+        <version>${com.tqlab.sense.version}</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- TQLAB SENSE END -->
+            			
+      
+      <!-- Test Framework -->
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>junit</groupId>
+                				
+        
+        <artifactId>junit</artifactId>
+                				
+        
+        <version>4.10</version>
+                			
+      
+      </dependency>
+            			
+      
+      <dependency>
+                				
+        
+        <groupId>org.easymock</groupId>
+                				
+        
+        <artifactId>easymock</artifactId>
+                				
+        
+        <version>3.0</version>
+                			
+      
+      </dependency>
+            			
+      
+      <!-- Test Framework end -->
+            		
+    
+    </dependencies>
+        	
+  
+  </dependencyManagement>
+    	
+  
+  <properties>
+        		
+    
+    <!-- Version config -->
+        		
+    
+    <tgg.version>1.0-SNAPSHOT</tgg.version>
+        		
+    
+    <org.springframework.version>3.1.1.RELEASE</org.springframework.version>
+        		
+    
+    <org.eclipse.gemini.blueprint.version>1.0.1.M01</org.eclipse.gemini.blueprint.version>
+        		
+    
+    <org.eclipse.gemini.web.version>2.1.0.M03</org.eclipse.gemini.web.version>
+        		
+    
+    <org.apache.catalina.version>7.0.26</org.apache.catalina.version>
+        		
+    
+    <org.eclipse.virgo.version>3.5.0.M04</org.eclipse.virgo.version>
+        		
+    
+    <org.eclipse.osgi.version>3.8.0.v20120529-1548</org.eclipse.osgi.version>
+        		
+    
+    <org.slf4j.version>1.6.1</org.slf4j.version>
+        		
+    
+    <com.tqlab.sense.version>1.0.0</com.tqlab.sense.version>
+        		
+    
+    <!-- Version config end -->
+        		
+    
+    <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        		
+    
+    <site>http://www.tqlab.com</site>
+        	
+  
+  </properties>
+    
+  
+  <modules>
+          
+    
+    <module>app</module>
+          
+    
+    <module>assembly</module>
+      
+  </modules>
+  
+</project>
